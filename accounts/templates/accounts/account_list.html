@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Account List</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>Account List</h1>
+
+    <form method="GET" class="mb-4">
+      <div class="row g-2 align-items-center">
+        <div class="col-auto">
+          <label for="account_type" class="form-label">Filter by Account Type:</label>
+        </div>
+        <div class="col-auto">
+          <select name="account_type" id="account_type" class="form-select">
+            <option value="">All</option>
+            <option value="social" {% if request.GET.account_type == 'social' %}selected{% endif %}>Social</option>
+            <option value="school" {% if request.GET.account_type == 'school' %}selected{% endif %}>School</option>
+            <option value="gaming" {% if request.GET.account_type == 'gaming' %}selected{% endif %}>Gaming</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Apply Filter</button>
+        </div>
+      </div>
+    </form>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Account Type</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for account in accounts %}
+        <tr>
+          <td>{{ account.username }}</td>
+          <td>{{ account.password }}</td>
+          <td>{{ account.account_type }}</td>
+          <td>{{ account.description }}</td>
+          <td>
+            <a href="{% url 'account_update' account.pk %}" class="btn btn-sm btn-primary">Edit</a>
+            <a href="{% url 'account_delete' account.pk %}" class="btn btn-sm btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a href="{% url 'account_create' %}" class="btn btn-primary">Create Account</a>
+  </div>
+</body>
+</html>

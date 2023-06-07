@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Account Detail</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>Account Detail</h1>
+
+    <p><strong>Username:</strong> {{ account.username }}</p>
+    <p><strong>Password:</strong> {{ account.password }}</p>
+    <p><strong>Account Type:</strong> {{ account.account_type }}</p>
+    <p><strong>Description:</strong> {{ account.description }}</p>
+
+    <a href="{% url 'account_update' account.pk %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'account_delete' account.pk %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'account_list' %}" class="btn btn-secondary">Back to Account List</a>
+  </div>
+</body>
+</html>
